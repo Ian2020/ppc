@@ -1,0 +1,24 @@
+#!/bin/env bash
+
+usage() {
+  echo "Usage: $(basename "$0") [N]..."
+  echo "Print Nth character(s) from a password"
+  exit 1
+}
+
+[[ $# -le 0 ]] && usage
+
+read -r -s -p "Password: " password
+echo
+
+for char_index in "$@"
+do
+  # https://unix.stackexchange.com/a/151655
+  if ! [ "$char_index" -eq "$char_index" ] 2>/dev/null
+  then
+       echo "$char_index is not an integer!"
+       exit 1
+  fi
+  echo -n "${password:char_index-1:1} "
+done
+echo

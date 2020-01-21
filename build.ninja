@@ -1,0 +1,6 @@
+rule install
+  command = cp $in /usr/local/bin/
+
+build /usr/local/bin: phony install
+build install: install ppc
+default install
